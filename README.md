@@ -1,1 +1,5 @@
-# Classwork_BME547
+# Patient Health Database
+
+Author: Scout Rice
+
+
