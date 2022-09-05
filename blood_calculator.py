@@ -20,5 +20,10 @@ def check_HDL(HDL_value):
     else:
         return "Borderline Low"
 
-input_HDL()
-check_HDL()
+def driver_function():
+    hdl_value = input_HDL()
+    answer = check_HDL(hdl_value)
+    ouput_HDL_result(hdl_value, answer)
+
+def output_HDL_result(hdl_value, characterization):
+    print("The results for an HDL value of {} is {}".format(hdl_value, characterization))
