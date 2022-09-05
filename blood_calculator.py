@@ -1,12 +1,15 @@
 def interface():
     print("Blood Calculator")
     print("Options")
+    print("1 - Analyze HDL")
     print("9 - Quit")
-    choice = input("Enter Choice: ")
-    if choice == 9:
-        return
-
-interface()
+    keep_running = True
+    while keep_running:
+        choice = int(input("Enter Choice: "))
+        if choice == 9:
+            return
+        elif choice == 1:
+            HDL_driver()
 
 def input_HDL():
     HDL_input = input("Enter the HDL value: ")
@@ -15,15 +18,17 @@ def input_HDL():
 def check_HDL(HDL_value):
     if HDL_value >= 60:
         return "Normal"
-    elif HDL_value < 40:
-        return "Low"
-    else:
+    elif HDL_value >= 40:
         return "Borderline Low"
+    else:
+        return "Low"
 
-def driver_function():
+def HDL_driver():
     hdl_value = input_HDL()
     answer = check_HDL(hdl_value)
-    ouput_HDL_result(hdl_value, answer)
+    output_HDL_result(hdl_value, answer)
 
-def output_HDL_result(hdl_value, characterization):
-    print("The results for an HDL value of {} is {}".format(hdl_value, characterization))
+def output_HDL_result(HDL_value, charac):
+    print("The results for an HDL value of {} is {}".format(HDL_value, charac))
+
+interface()
