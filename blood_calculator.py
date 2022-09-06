@@ -2,7 +2,7 @@ def interface():
     print("Blood Calculator")
     print("Options")
     print("1 - Analyze HDL")
-    print("2 - Analyze HDL")
+    print("2 - Analyze LDL")
     print("9 - Quit")
     keep_running = True
     while keep_running:
@@ -53,8 +53,8 @@ def LDL_driver():
     ans = check_LDL(ldl_value)
     output_LDL_result(ldl_value, ans)
 
-def output_LDL_result(LDL_value, char)
-    print("The results for an LDL value of {} is {}".format(LDL_value, char))
+def output_LDL_result(LDL_value, character):
+    print("The results for an LDL value of {} is {}".format(LDL_value, character))
 
 
 
