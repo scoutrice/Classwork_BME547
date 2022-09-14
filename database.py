@@ -26,5 +26,11 @@ def main():
     add_results(db, 3, "HDL", 100)
     print_database(db)
 
+    room_list = ["Room 1", "Room 2", "Room 3"]
+
+    for patient, room in zip(db, room_list):
+        print("Name = {}, Room = {}".format(patient[0], room))
+
+
 if __name__ == "__main__":
-    main()
+    main() 
