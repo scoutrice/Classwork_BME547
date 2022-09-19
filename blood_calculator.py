@@ -79,4 +79,5 @@ def Cholesterol_driver():
 def output_chol_result(Chol_value, char):
     print("The results for the a cholesterol value of {} is {}".format(Chol_value, char))
 
-interface()
+if __name__ == "__main__":
+    interface()
