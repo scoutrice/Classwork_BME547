@@ -1,20 +1,40 @@
+class Patient:
+
+    def __init__(self, first_name, last_name, patient_id, age):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.patient_id = patient_id
+        self.age = age
+        self.tests = []
+    
+    def full_name(self):
+        return "{} {}".format(self.first_name, self.last_name)
+
+
 def create_patient_entry(patient_first_name,
                          patient_last_name, patient_id,
                          patient_age):
-    new_patient = {"First Name": patient_first_name,
-                    "Last Name": patient_last_name,
-                    "ID": patient_id,
-                    "Age": patient_age,
-                    "Tests": []}
+    new_patient = Patient(patient_first_name, patient_last_name,
+                          patient_id, patient_age)
+    # new_patient = {"First Name": patient_first_name,
+    #                 "Last Name": patient_last_name,
+    #                 "ID": patient_id,
+    #                 "Age": patient_age,
+    #                 "Tests": []}
     return new_patient
 
 
 def print_database(db):
-    for patient in db:
-        print(patient)
-        print("Name: {}, id: {}, age: {}".format(get_full_name(db[patient]),
-                                                 db[patient]["ID"], 
-                                                 db[patient]["Age"]))
+    for patient_key in db:
+        print(patient_key)
+        print("Name: {}, id: {}, age: {}".format(get_full_name(db[patient_key]),
+                                                 db[patient_key]["ID"], 
+                                                 db[patient_key]["Age"]))
+    #other way to do this than above method
+    #for patient in db.values():
+        #print("Name: {}, ID: {}, age: {}".format(get_full_name(patient),
+                                                 #patient["ID"], 
+                                                 #patient["Age"]))
 
 
 def get_full_name(patient):
@@ -40,6 +60,11 @@ def adult_or_minor(patient):
 
 
 def main():
+    x = Patient("Scout", "Rice", "","")
+    x.first_name = "Scout"
+    x.last_name = "Rice"
+    print(x.full_name())
+    exit()
     db = {}
     db[11] = create_patient_entry("Anne", "Ables", 11, 30)
     db[22] = create_patient_entry("Bob", "Boyles", 22, 34)
