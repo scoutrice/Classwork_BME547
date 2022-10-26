@@ -17,6 +17,7 @@ db = []
 
 from flask import Flask, request, jsonify
 import json
+import logging
 
 app = Flask(__name__)
 
@@ -30,7 +31,7 @@ def add_patient(patient_name, patient_id, blood_type):
                    "id": patient_id,
                    "blood_type": blood_type,
                    "test_name": [],
-                   "test_results": []}
+                   "test_result": []}
     db.append(new_patient)
 
 
@@ -38,6 +39,7 @@ def init_server():
     add_patient("Ann Ables", 1, "A+")
     add_patient("Bob Boyles", 2, "B+")
     # initialize logging     
+    logging.basicConfig(filename="server.log")
 
 
 @app.route("/new_patient", methods=["POST"])
@@ -47,6 +49,8 @@ def add_new_patient_to_server():
     1. Receive data from POST requests
     2. Call other functions to do all the work
     3. Return information
+
+    Docstrings should include format type of POST request.
     """
     in_data = request.get_json()
     message, status_code = add_new_patient_worker(in_data)
@@ -74,6 +78,45 @@ def validate_new_patient_info(in_data):
     for key, ex_type in zip(expected_keys, expected_types):
         if type(in_data[key]) is not ex_type:
             return "Key {}'s value has the wrong data type.".format(key)
+    return True
+
+
+@app.route("/add_test", methods=["POST"])
+def add_test_flask_handler():
+    in_data = request.get_json()
+    msg, status_code = add_test_worker(in_data)
+    return msg, status_code
+
+
+def add_test_worker(in_data):
+    msg = add_test_validation(in_data)
+    if msg is not True:
+        return msg, 400
+    add_test_to_patient(in_data)
+    return "Test added", 400
+
+
+def find_patient(patient_id):
+    for patient in db:
+        if patient["id"] == patient_id:
+            return patient
+    return False
+
+
+def add_test_to_patient(in_data):
+    patient = find_patient(in_data["id"])
+    patient["test_name"].append(in_data["test_name"])
+    patient["test_result"].append(in_data["test_result"])
+
+
+def add_test_validation(in_data):
+    expected_keys = ["id", "test_name", "test_result"]
+    expected_types = [int, str, int]
+    for ex_keys, ex_type in zip(expected_keys, expected_types):
+        if ex_keys not in in_data:
+            return "Key missing"
+        if type(in_data[ex_keys]) is not ex_type:
+            return "Bad value type"
     return True
 
 
